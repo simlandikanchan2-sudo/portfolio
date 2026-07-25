@@ -2,22 +2,47 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { FileDown } from "lucide-react"
+import {
+  Home,
+  FolderOpen,
+  FileText,
+  Mail,
+  LayoutDashboard,
+  User,
+  Megaphone,
+  LogOut,
+  X,
+  FileDown,
+} from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { navLinks, personalInfo } from "@/lib/resume-data"
 import { cn } from "@/lib/utils"
 
-const stagger = {
-  hidden: { opacity: 0 },
+const drawerVariants = {
+  hidden: { x: "-100%" },
   visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.2 },
+    x: 0,
+    transition: { type: "spring" as const, stiffness: 300, damping: 30 },
+  },
+  exit: {
+    x: "-100%",
+    transition: { duration: 0.2 },
   },
 }
 
-const linkItem = {
-  hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+}
+
+const iconMap: Record<string, React.ElementType> = {
+  about: Home,
+  experience: LayoutDashboard,
+  skills: User,
+  projects: FolderOpen,
+  resume: FileText,
+  contact: Mail,
 }
 
 export function Navbar() {
@@ -30,13 +55,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : ""
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [mobileOpen])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,6 +74,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
+
   const handleNav = (href: string) => {
     setMobileOpen(false)
     const el = document.querySelector(href)
@@ -72,14 +97,45 @@ export function Navbar() {
       )}
     >
       <nav className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-8 h-16">
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors truncate max-w-[160px] sm:max-w-none"
-        >
-          <span className="text-accent font-mono">&lt;</span>
-          {personalInfo.name.split(" ")[0].toLowerCase()}
-          <span className="text-accent font-mono">/&gt;</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-muted md:hidden"
+            aria-label="Toggle menu"
+          >
+            <div className="flex flex-col gap-1.5">
+              <motion.span
+                animate={
+                  mobileOpen
+                    ? { rotate: 45, y: 4.5 }
+                    : { rotate: 0, y: 0 }
+                }
+                className="block w-5 h-px bg-foreground"
+              />
+              <motion.span
+                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="block w-5 h-px bg-foreground"
+              />
+              <motion.span
+                animate={
+                  mobileOpen
+                    ? { rotate: -45, y: -4.5 }
+                    : { rotate: 0, y: 0 }
+                }
+                className="block w-5 h-px bg-foreground"
+              />
+            </div>
+          </button>
+
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors"
+          >
+            <span className="text-accent font-mono">&lt;</span>
+            {personalInfo.name.split(" ")[0].toLowerCase()}
+            <span className="text-accent font-mono">/&gt;</span>
+          </button>
+        </div>
 
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
@@ -112,77 +168,128 @@ export function Navbar() {
           </div>
         </div>
 
-        <div className="flex md:hidden items-center gap-2">
+        <div className="md:hidden">
           <ThemeToggle />
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-muted"
-            aria-label="Toggle menu"
-          >
-            <div className="flex flex-col gap-1.5">
-              <motion.span
-                animate={
-                  mobileOpen
-                    ? { rotate: 45, y: 4.5 }
-                    : { rotate: 0, y: 0 }
-                }
-                className="block w-5 h-px bg-foreground"
-              />
-              <motion.span
-                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                className="block w-5 h-px bg-foreground"
-              />
-              <motion.span
-                animate={
-                  mobileOpen
-                    ? { rotate: -45, y: -4.5 }
-                    : { rotate: 0, y: 0 }
-                }
-                className="block w-5 h-px bg-foreground"
-              />
-            </div>
-          </button>
         </div>
       </nav>
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-16 z-40 bg-base flex flex-col items-center justify-center"
-          >
+          <>
             <motion.div
-              variants={stagger}
+              key="backdrop"
+              variants={backdropVariants}
               initial="hidden"
               animate="visible"
-              className="flex flex-col items-center gap-6 px-4"
+              exit="exit"
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-40 bg-black/50 md:hidden"
+              onClick={() => setMobileOpen(false)}
+            />
+
+            <motion.aside
+              key="drawer"
+              variants={drawerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed top-0 left-0 z-50 h-full w-[280px] bg-base border-r border-border shadow-2xl md:hidden"
             >
-              {navLinks.map((link) => (
-                <motion.button
-                  key={link.href}
-                  variants={linkItem}
-                  onClick={() => handleNav(link.href)}
-                  className="text-2xl sm:text-3xl font-sans font-bold text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span className="text-accent font-mono text-base sm:text-lg">{'// '}</span>
-                  {link.label}
-                </motion.button>
-              ))}
-              <motion.div variants={linkItem} className="mt-4">
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-accent text-accent-foreground font-medium text-base hover:opacity-90 transition-all max-w-[90vw] justify-center"
-                >
-                  <FileDown className="w-4 h-4" />
-                  Download Resume
-                </a>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between p-4 border-b border-border">
+                  <span className="font-sans text-lg font-bold tracking-tight">
+                    <span className="text-accent font-mono">&lt;</span>
+                    {personalInfo.name.split(" ")[0].toLowerCase()}
+                    <span className="text-accent font-mono">/&gt;</span>
+                  </span>
+                  <button
+                    onClick={() => setMobileOpen(false)}
+                    className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto py-4 px-4 space-y-1">
+                  {[
+                    { href: "#hero", label: "Home", icon: Home },
+                    { href: "#projects", label: "Projects", icon: FolderOpen },
+                    { href: "#resume", label: "Resume", icon: FileText },
+                    { href: "#contact", label: "Contact", icon: Mail },
+                  ].map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <button
+                        key={item.href}
+                        onClick={() => handleNav(item.href)}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                      >
+                        <Icon className="w-4 h-4" />
+                        {item.label}
+                      </button>
+                    )
+                  })}
+
+                  <div className="my-4 border-t border-border" />
+
+                  {[
+                    { href: "#experience", label: "Dashboard", icon: LayoutDashboard },
+                    { href: "#about", label: "My Profile", icon: User },
+                    { href: "#case-study", label: "My Campaigns", icon: Megaphone },
+                  ].map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <button
+                        key={item.href}
+                        onClick={() => handleNav(item.href)}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                      >
+                        <Icon className="w-4 h-4" />
+                        {item.label}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                <div className="p-4 border-t border-border space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent font-mono text-sm font-bold">
+                      {personalInfo.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate">
+                        {personalInfo.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {personalInfo.email}
+                      </p>
+                    </div>
+                  </div>
+
+                  <a
+                    href="/resume.pdf"
+                    download
+                    className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg bg-accent text-accent-foreground text-sm font-medium hover:opacity-90 transition-all"
+                  >
+                    <FileDown className="w-4 h-4 mr-2" />
+                    Download Resume
+                  </a>
+
+                  <button
+                    onClick={() => {}}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-500/10 transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </header>
