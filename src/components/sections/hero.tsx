@@ -48,7 +48,7 @@ export function Hero() {
     <section
       id="hero"
       ref={ref}
-      className="relative min-h-screen flex items-start sm:items-center px-4 sm:px-8 pt-20 sm:pt-16 overflow-hidden"
+      className="relative min-h-screen flex items-start sm:items-center px-4 sm:px-8 pt-20 sm:pt-16 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent"
     >
       <div className="absolute inset-0 -z-10">
         <motion.div

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
+import { SectionHeading } from "@/components/ui/section-heading"
 import {
   Phone,
   Mail,
@@ -31,29 +32,14 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 sm:py-28 px-4 sm:px-8">
+    <section id="contact" className="py-20 sm:py-28 px-4 sm:px-8 relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent">
       <div className="mx-auto max-w-7xl">
-        <div className="max-w-xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <span className="font-mono text-xs font-medium text-accent tracking-widest">
-                {'// CONNECT'}
-              </span>
-              <span className="h-px flex-1 bg-border" />
-            </div>
-            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              Get in Touch
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed">
-              Have a project in mind or just want to say hello? Let&apos;s connect.
-            </p>
-          </motion.div>
-        </div>
+        <SectionHeading
+          number="08"
+          label="// CONNECT"
+          title="Get in Touch"
+          description="Have a project in mind or just want to say hello? Let's connect."
+        />
 
         <div className="mt-12 grid md:grid-cols-5 gap-6">
           <motion.div

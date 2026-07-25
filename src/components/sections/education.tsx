@@ -7,7 +7,7 @@ import { education, certifications } from "@/lib/resume-data"
 
 export function Education() {
   return (
-    <section className="py-20 sm:py-28 px-4 sm:px-8 bg-muted/30">
+    <section className="py-20 sm:py-28 px-4 sm:px-8 bg-muted/30 relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           number="06"

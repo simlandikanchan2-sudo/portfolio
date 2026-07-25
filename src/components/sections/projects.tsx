@@ -48,7 +48,7 @@ function TiltCard({
 
 export function Projects() {
   return (
-    <section className="py-20 sm:py-28 px-4 sm:px-8">
+    <section className="py-20 sm:py-28 px-4 sm:px-8 relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="05"
@@ -68,7 +68,7 @@ export function Projects() {
               <TiltCard>
                 <article
                   data-cursor="View"
-                  className="group relative rounded-2xl border border-border bg-surface p-6 sm:p-8 transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5"
+                  className="group relative rounded-2xl border border-border bg-surface p-6 sm:p-8 transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -112,6 +112,28 @@ export function Projects() {
               </TiltCard>
             </motion.div>
           ))}
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 2 * 0.15, duration: 0.5 }}
+            className="h-full"
+          >
+            <div className="relative rounded-2xl border-2 border-dashed border-border bg-surface/50 p-6 sm:p-8 h-full min-h-[280px] flex items-center justify-center">
+              <div className="text-center">
+                <span className="font-mono text-xs text-muted-foreground">
+                  project_3()
+                </span>
+                <h3 className="mt-2 font-sans text-xl font-semibold text-muted-foreground">
+                  Coming Soon
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground/60 max-w-xs mx-auto">
+                  More projects are in the works. Check back soon!
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

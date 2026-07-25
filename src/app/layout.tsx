@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "next-themes"
+import { ScrollWatermark } from "@/components/ui/scroll-watermark"
 import "./globals.css"
 
 const bricolage = Bricolage_Grotesque({
@@ -39,6 +40,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
+          <ScrollWatermark />
           {children}
         </ThemeProvider>
       </body>

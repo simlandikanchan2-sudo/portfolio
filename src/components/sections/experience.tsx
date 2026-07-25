@@ -20,7 +20,7 @@ export function Experience() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="py-20 sm:py-28 px-4 sm:px-8 bg-muted/30">
+    <section className="py-20 sm:py-28 px-4 sm:px-8 bg-muted/30 relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           number="02"
@@ -45,9 +45,9 @@ export function Experience() {
 
                 <div
                   className={cn(
-                    "rounded-xl border bg-surface overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/5",
+                    "rounded-xl border bg-surface overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/5 border-l-2 border-l-transparent hover:border-l-accent/50",
                     openIndex === idx
-                      ? "border-accent/30 shadow-lg shadow-accent/5"
+                      ? "border-accent/30 shadow-lg shadow-accent/5 border-l-accent/50"
                       : "border-border hover:border-accent/20"
                   )}
                 >
@@ -85,29 +85,41 @@ export function Experience() {
                     {openIndex === idx && (
                       <motion.div
                         key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" as const }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          ease: "easeOut" as const,
+                        }}
                         className="overflow-hidden"
                       >
-                        <ul className="px-5 sm:px-6 pb-5 sm:pb-6 space-y-2">
-                          {exp.achievements.map((ach, i) => (
-                            <motion.li
-                              key={i}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{
-                                delay: i * 0.04,
-                                duration: 0.3,
-                              }}
-                              className="flex gap-2 text-sm text-muted-foreground break-words"
-                            >
-                              <span className="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-accent" />
-                              {ach}
-                            </motion.li>
-                          ))}
-                        </ul>
+                        <motion.div
+                          initial={{ height: 0 }}
+                          animate={{ height: "auto" }}
+                          exit={{ height: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" as const }}
+                          className="overflow-hidden"
+                        >
+                          <ul className="px-5 sm:px-6 pb-5 sm:pb-6 space-y-2">
+                            {exp.achievements.map((ach, i) => (
+                              <motion.li
+                                key={i}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{
+                                  delay: i * 0.06,
+                                  duration: 0.35,
+                                  ease: "easeOut" as const,
+                                }}
+                                className="flex gap-2 text-sm text-muted-foreground break-words"
+                              >
+                                <span className="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-accent" />
+                                {ach}
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </motion.div>
                       </motion.div>
                     )}
                   </AnimatePresence>

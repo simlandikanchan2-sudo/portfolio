@@ -26,7 +26,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function About() {
   return (
-    <section id="about" className="py-20 sm:py-28 px-4 sm:px-8">
+    <section id="about" className="py-20 sm:py-28 px-4 sm:px-8 relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="01"
