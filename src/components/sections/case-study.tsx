@@ -36,7 +36,7 @@ export function CaseStudy() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06, duration: 0.4 }}
-                className="flex flex-col items-center gap-2 p-5 rounded-xl border border-border bg-surface"
+                className="flex flex-col items-center gap-2 p-5 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
               >
                 <div className="p-2 rounded-lg bg-accent/10 text-accent">
                   {Icon && <Icon className="w-4 h-4" />}
@@ -58,7 +58,7 @@ export function CaseStudy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="p-6 rounded-2xl border border-border bg-surface"
+            className="p-6 rounded-2xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
           >
             <span className="font-mono text-xs text-accent">
               {"// architecture"}
@@ -85,7 +85,7 @@ export function CaseStudy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="p-6 rounded-2xl border border-border bg-surface"
+            className="p-6 rounded-2xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
           >
             <span className="font-mono text-xs text-accent">
               {"// highlights"}

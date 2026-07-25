@@ -54,6 +54,10 @@
   border-color: var(--border);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--base);
   color: var(--foreground);
@@ -64,6 +68,28 @@ body {
 ::selection {
   background-color: var(--accent);
   color: var(--accent-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
 }
 
 @media (prefers-reduced-motion: reduce) {

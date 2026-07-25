@@ -68,7 +68,7 @@ export function Projects() {
               <TiltCard>
                 <article
                   data-cursor="View"
-                  className="group relative rounded-2xl border border-border bg-surface p-6 sm:p-8 transition-all duration-300 hover:border-accent/30"
+                  className="group relative rounded-2xl border border-border bg-surface p-6 sm:p-8 transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -90,7 +90,7 @@ export function Projects() {
                     {project.tech.map((t) => (
                       <span
                         key={t}
-                        className="font-mono text-xs px-2.5 py-1 rounded-md bg-accent/10 text-accent"
+                        className="font-mono text-xs px-2.5 py-1 rounded-md bg-accent/10 text-accent border border-accent/10"
                       >
                         {t}
                       </span>

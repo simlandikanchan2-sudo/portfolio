@@ -70,7 +70,7 @@ export function Contact() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 p-4 rounded-xl border border-border bg-surface"
+                className="flex items-center gap-3 p-4 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
               >
                 <div className="p-2 rounded-lg bg-accent/10 text-accent">
                   <item.icon className="w-4 h-4" />
@@ -98,7 +98,7 @@ export function Contact() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-accent hover:border-accent transition-all"
+                className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="LinkedIn"
@@ -109,7 +109,7 @@ export function Contact() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-accent hover:border-accent transition-all"
+                className="p-2.5 rounded-lg border border-border text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="GitHub"
@@ -125,7 +125,7 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="md:col-span-3 p-6 rounded-2xl border border-border bg-surface space-y-4"
+            className="md:col-span-3 p-6 rounded-2xl border border-border bg-surface space-y-4 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300"
           >
             <span className="font-mono text-xs text-accent">
               {'// send_message'}

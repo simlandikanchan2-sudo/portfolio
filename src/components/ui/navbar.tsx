@@ -23,6 +23,7 @@ const linkItem = {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [active, setActive] = useState("")
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -36,6 +37,24 @@ export function Navbar() {
       document.body.style.overflow = ""
     }
   }, [mobileOpen])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map((l) => ({
+        id: l.href.replace("#", ""),
+        top: document.getElementById(l.href.replace("#", ""))?.offsetTop ?? 0,
+      }))
+      const scrollPos = window.scrollY + 120
+      let current = sections[0]?.id ?? ""
+      for (const s of sections) {
+        if (scrollPos >= s.top) current = s.id
+      }
+      setActive(current)
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const handleNav = (href: string) => {
     setMobileOpen(false)
@@ -63,15 +82,23 @@ export function Navbar() {
         </button>
 
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => handleNav(link.href)}
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
-            >
-              {link.label}
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            const id = link.href.replace("#", "")
+            return (
+              <button
+                key={link.href}
+                onClick={() => handleNav(link.href)}
+                className={cn(
+                  "px-3 py-2 text-sm font-medium transition-colors rounded-md",
+                  active === id
+                    ? "text-accent bg-accent/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                )}
+              >
+                {link.label}
+              </button>
+            )
+          })}
           <div className="ml-3 flex items-center gap-2">
             <ThemeToggle />
             <a

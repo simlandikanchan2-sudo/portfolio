@@ -2,7 +2,13 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowDown, ExternalLink, Globe, Mail } from "lucide-react"
+import {
+  ArrowDown,
+  ExternalLink,
+  Globe,
+  Mail,
+  FileDown,
+} from "lucide-react"
 import { MagneticButton } from "@/components/ui/magnetic-button"
 import { personalInfo } from "@/lib/resume-data"
 
@@ -47,11 +53,15 @@ export function Hero() {
       <div className="absolute inset-0 -z-10">
         <motion.div
           style={{ y }}
-          className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full bg-accent/8 blur-[100px]"
+          className="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full bg-accent/10 blur-[120px]"
         />
         <motion.div
           style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]) }}
-          className="absolute bottom-[10%] left-[-5%] w-[30vw] h-[30vw] max-w-[400px] max-h-[400px] rounded-full bg-accent/5 blur-[80px]"
+          className="absolute bottom-[10%] left-[-5%] w-[30vw] h-[30vw] max-w-[400px] max-h-[400px] rounded-full bg-accent/8 blur-[100px]"
+        />
+        <motion.div
+          style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]) }}
+          className="absolute top-[40%] left-[30%] w-[20vw] h-[20vw] max-w-[300px] max-h-[300px] rounded-full bg-accent/5 blur-[80px]"
         />
       </div>
 
@@ -87,7 +97,7 @@ export function Hero() {
             transition={{ delay: 0.5, duration: 0.5 }}
             className="mt-6 flex flex-wrap items-center gap-3"
           >
-            <span className="font-mono text-xs text-accent bg-accent/10 px-3 py-1 rounded-full">
+            <span className="font-mono text-xs text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/20">
               role: backend
             </span>
             <span className="font-mono text-xs text-muted-foreground">
@@ -99,7 +109,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.5 }}
-            className="mt-4 text-sm sm:text-base text-muted-foreground max-w-md leading-relaxed"
+            className="mt-5 text-sm sm:text-base text-muted-foreground max-w-lg leading-relaxed"
           >
             {personalInfo.intro}
           </motion.p>
@@ -118,6 +128,13 @@ export function Hero() {
               <ArrowDown className="w-3.5 h-3.5" />
             </MagneticButton>
             <MagneticButton
+              href="#resume"
+              variant="outline"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+              View Resume
+            </MagneticButton>
+            <MagneticButton
               href="#contact"
               variant="outline"
             >
@@ -129,14 +146,14 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            className="mt-6 flex items-center gap-3"
+            className="mt-8 flex items-center gap-3"
           >
             <motion.a
               href={personalInfo.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent transition-colors"
-              whileHover={{ scale: 1.15 }}
+              className="p-2.5 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all"
+              whileHover={{ scale: 1.15, y: -2 }}
               whileTap={{ scale: 0.9 }}
               aria-label="LinkedIn"
             >
@@ -146,8 +163,8 @@ export function Hero() {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent transition-colors"
-              whileHover={{ scale: 1.15 }}
+              className="p-2.5 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all"
+              whileHover={{ scale: 1.15, y: -2 }}
               whileTap={{ scale: 0.9 }}
               aria-label="GitHub"
             >
@@ -155,8 +172,8 @@ export function Hero() {
             </motion.a>
             <motion.a
               href={`mailto:${personalInfo.email}`}
-              className="p-2 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent transition-colors"
-              whileHover={{ scale: 1.15 }}
+              className="p-2.5 rounded-full border border-border text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all"
+              whileHover={{ scale: 1.15, y: -2 }}
               whileTap={{ scale: 0.9 }}
               aria-label="Email"
             >
@@ -172,7 +189,7 @@ export function Hero() {
             transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" as const }}
             className="relative"
           >
-            <div className="aspect-square max-w-sm mx-auto rounded-2xl border border-border bg-surface overflow-hidden relative">
+            <div className="aspect-square max-w-sm mx-auto rounded-2xl border border-border bg-surface overflow-hidden relative shadow-2xl shadow-accent/5">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
                   <div className="font-mono text-xs text-accent mb-2">
@@ -207,6 +224,11 @@ export function Hero() {
               animate={{ rotate: [0, 5, 0] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" as const }}
               className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl border border-accent/20 bg-accent/5 -z-10"
+            />
+            <motion.div
+              animate={{ rotate: [0, -3, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" as const }}
+              className="absolute -top-4 -left-4 w-16 h-16 rounded-lg border border-accent/10 bg-accent/5 -z-10"
             />
           </motion.div>
         </div>

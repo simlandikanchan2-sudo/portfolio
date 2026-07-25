@@ -22,7 +22,7 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="p-5 rounded-xl border border-border bg-surface"
+              className="p-5 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
             >
               <span className="font-mono text-xs text-accent">
                 {group.category.toLowerCase().replace(/\s+/g, "_")}()
@@ -31,7 +31,7 @@ export function Skills() {
                 {group.skills.map((skill) => (
                   <motion.span
                     key={skill}
-                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-muted text-muted-foreground font-mono"
+                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-muted text-muted-foreground font-mono border border-transparent hover:border-accent/20"
                     whileHover={{
                       scale: 1.05,
                       backgroundColor: "var(--accent)",

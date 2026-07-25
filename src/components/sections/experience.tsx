@@ -31,7 +31,7 @@ export function Experience() {
         <div className="mt-14 relative">
           <div className="absolute left-[19px] top-0 bottom-0 w-px bg-border hidden sm:block" />
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             {experiences.map((exp, idx) => (
               <motion.div
                 key={idx}
@@ -41,13 +41,13 @@ export function Experience() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="relative pl-0 sm:pl-14"
               >
-                <div className="absolute left-[11px] top-7 w-4 h-4 rounded-full border-2 border-accent bg-base hidden sm:block" />
+                <div className="absolute left-[11px] top-7 w-4 h-4 rounded-full border-2 border-accent bg-base hidden sm:block group-hover:bg-accent transition-colors" />
 
                 <div
                   className={cn(
-                    "rounded-xl border bg-surface overflow-hidden transition-all duration-300",
+                    "rounded-xl border bg-surface overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/5",
                     openIndex === idx
-                      ? "border-accent/30"
+                      ? "border-accent/30 shadow-lg shadow-accent/5"
                       : "border-border hover:border-accent/20"
                   )}
                 >
@@ -55,7 +55,7 @@ export function Experience() {
                     onClick={() =>
                       setOpenIndex(openIndex === idx ? null : idx)
                     }
-                    className="w-full flex items-start justify-between gap-4 p-5 sm:p-6 text-left"
+                    className="w-full flex items-start justify-between gap-4 p-5 sm:p-6 text-left group"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
@@ -63,7 +63,7 @@ export function Experience() {
                           {exp.period}
                         </span>
                       </div>
-                      <h3 className="font-sans text-lg font-semibold">
+                      <h3 className="font-sans text-lg font-semibold group-hover:text-accent transition-colors">
                         {exp.role}
                       </h3>
                       <p className="mt-0.5 text-sm text-muted-foreground font-mono">
