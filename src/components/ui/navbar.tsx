@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, X, FileDown } from "lucide-react"
+import { X, FileDown } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { navLinks, personalInfo } from "@/lib/resume-data"
 import { cn } from "@/lib/utils"
@@ -19,20 +19,12 @@ const drawerVariants = {
   },
 }
 
-const backdropVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-}
-
 const menuOrder = [
   { href: "#hero", label: "Home" },
   { href: "#projects", label: "Projects" },
   { href: "#resume", label: "Resume" },
   { href: "#contact", label: "Contact" },
   { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
 ]
 
 export function Navbar() {
@@ -81,7 +73,7 @@ export function Navbar() {
     <header
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-300",
-        scrolled || mobileOpen
+        scrolled && !mobileOpen
           ? "bg-base/80 backdrop-blur-xl border-b border-border"
           : "bg-transparent"
       )}
@@ -165,87 +157,74 @@ export function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <>
-            <motion.div
-              key="backdrop"
-              variants={backdropVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 bg-black/50 md:hidden"
-              onClick={() => setMobileOpen(false)}
-            />
-
-            <motion.aside
-              key="drawer"
-              variants={drawerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="fixed top-0 left-0 z-50 h-full w-[280px] bg-surface border-r border-border md:hidden"
-            >
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6">
-                  <span className="font-sans text-xl font-bold tracking-tight">
-                    <span className="text-accent font-mono">&lt;</span>
-                    {personalInfo.name.split(" ")[0].toLowerCase()}
-                    <span className="text-accent font-mono">/&gt;</span>
-                  </span>
-                  <button
-                    onClick={() => setMobileOpen(false)}
-                    className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted"
-                    aria-label="Close menu"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <div className="flex-1 overflow-y-auto px-6 py-4">
-                  <nav className="space-y-1">
-                    {menuOrder.map((item) => {
-                      const isActive = active === item.href.replace("#", "")
-                      return (
-                        <button
-                          key={item.href}
-                          onClick={() => handleNav(item.href)}
-                          className={cn(
-                            "w-full flex items-center justify-between py-3 text-base font-medium transition-colors",
-                            isActive
-                              ? "text-accent"
-                              : "text-foreground hover:text-accent"
-                          )}
-                        >
-                          <span>{item.label}</span>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                        </button>
-                      )
-                    })}
-                  </nav>
-
-                  <div className="mt-8">
-                    <a
-                      href="/resume.pdf"
-                      download
-                      className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
-                    >
-                      <FileDown className="w-4 h-4" />
-                      Download Resume
-                    </a>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <button
-                    onClick={() => handleNav("#experience")}
-                    className="w-full px-6 py-3.5 rounded-lg bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-all"
-                  >
-                    View Work
-                  </button>
-                </div>
+          <motion.div
+            key="drawer"
+            variants={drawerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed inset-0 z-50 bg-white dark:bg-surface md:hidden overflow-y-auto"
+          >
+            <div className="flex flex-col min-h-full px-8 py-10">
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors"
+                >
+                  <span className="text-accent font-mono">&lt;</span>
+                  {personalInfo.name.split(" ")[0].toLowerCase()}
+                  <span className="text-accent font-mono">/&gt;</span>
+                </button>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-            </motion.aside>
-          </>
+
+              <nav className="flex-1 pt-16 space-y-2">
+                {menuOrder.map((item) => {
+                  const isActive = active === item.href.replace("#", "")
+                  return (
+                    <button
+                      key={item.href}
+                      onClick={() => handleNav(item.href)}
+                      className={cn(
+                        "w-full flex items-center justify-between py-4 text-lg font-medium transition-colors",
+                        isActive
+                          ? "text-accent"
+                          : "text-foreground hover:text-accent"
+                      )}
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-muted-foreground text-xl leading-none">&gt;</span>
+                    </button>
+                  )
+                })}
+              </nav>
+
+              <div className="pt-8">
+                <a
+                  href="/resume.pdf"
+                  download
+                  className="text-sm font-medium text-accent hover:underline"
+                >
+                  Download Resume
+                </a>
+              </div>
+
+              <div className="pt-8 pb-4">
+                <button
+                  onClick={() => handleNav("#projects")}
+                  className="w-full py-4 rounded-lg bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-all"
+                >
+                  View Work
+                </button>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
