@@ -15,19 +15,19 @@ import { personalInfo } from "@/lib/resume-data"
 function SplitText({ text, className }: { text: string; className?: string }) {
   return (
     <span className={className}>
-      {text.split(" ").map((word, wi) => (
-        <span key={wi} className="inline-block overflow-hidden mr-[0.25em] last:mr-0">
+      {text.split("").map((char, i) => (
+        <span key={i} className="inline-block overflow-hidden">
           <motion.span
             className="inline-block"
-            initial={{ y: "100%", clipPath: "inset(0 0 100% 0)" }}
-            animate={{ y: 0, clipPath: "inset(0 0 0% 0)" }}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
             transition={{
-              duration: 0.6,
-              delay: wi * 0.08,
+              duration: 0.5,
+              delay: i * 0.04,
               ease: [0.33, 1, 0.68, 1],
             }}
           >
-            {word}
+            {char === " " ? "\u00A0" : char}
           </motion.span>
         </span>
       ))}
