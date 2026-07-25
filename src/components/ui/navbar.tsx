@@ -2,18 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {
-  Home,
-  FolderOpen,
-  FileText,
-  Mail,
-  LayoutDashboard,
-  User,
-  Megaphone,
-  LogOut,
-  X,
-  FileDown,
-} from "lucide-react"
+import { ChevronRight, X, FileDown } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { navLinks, personalInfo } from "@/lib/resume-data"
 import { cn } from "@/lib/utils"
@@ -36,14 +25,15 @@ const backdropVariants = {
   exit: { opacity: 0 },
 }
 
-const iconMap: Record<string, React.ElementType> = {
-  about: Home,
-  experience: LayoutDashboard,
-  skills: User,
-  projects: FolderOpen,
-  resume: FileText,
-  contact: Mail,
-}
+const menuOrder = [
+  { href: "#hero", label: "Home" },
+  { href: "#projects", label: "Projects" },
+  { href: "#resume", label: "Resume" },
+  { href: "#contact", label: "Contact" },
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#skills", label: "Skills" },
+]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -193,11 +183,11 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 left-0 z-50 h-full w-[280px] bg-base border-r border-border shadow-2xl md:hidden"
+              className="fixed top-0 left-0 z-50 h-full w-[280px] bg-surface border-r border-border md:hidden"
             >
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-4 border-b border-border">
-                  <span className="font-sans text-lg font-bold tracking-tight">
+                <div className="flex items-center justify-between p-6">
+                  <span className="font-sans text-xl font-bold tracking-tight">
                     <span className="text-accent font-mono">&lt;</span>
                     {personalInfo.name.split(" ")[0].toLowerCase()}
                     <span className="text-accent font-mono">/&gt;</span>
@@ -211,80 +201,46 @@ export function Navbar() {
                   </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto py-4 px-4 space-y-1">
-                  {[
-                    { href: "#hero", label: "Home", icon: Home },
-                    { href: "#projects", label: "Projects", icon: FolderOpen },
-                    { href: "#resume", label: "Resume", icon: FileText },
-                    { href: "#contact", label: "Contact", icon: Mail },
-                  ].map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <button
-                        key={item.href}
-                        onClick={() => handleNav(item.href)}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                      >
-                        <Icon className="w-4 h-4" />
-                        {item.label}
-                      </button>
-                    )
-                  })}
+                <div className="flex-1 overflow-y-auto px-6 py-4">
+                  <nav className="space-y-1">
+                    {menuOrder.map((item) => {
+                      const isActive = active === item.href.replace("#", "")
+                      return (
+                        <button
+                          key={item.href}
+                          onClick={() => handleNav(item.href)}
+                          className={cn(
+                            "w-full flex items-center justify-between py-3 text-base font-medium transition-colors",
+                            isActive
+                              ? "text-accent"
+                              : "text-foreground hover:text-accent"
+                          )}
+                        >
+                          <span>{item.label}</span>
+                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                        </button>
+                      )
+                    })}
+                  </nav>
 
-                  <div className="my-4 border-t border-border" />
-
-                  {[
-                    { href: "#experience", label: "Dashboard", icon: LayoutDashboard },
-                    { href: "#about", label: "My Profile", icon: User },
-                    { href: "#case-study", label: "My Campaigns", icon: Megaphone },
-                  ].map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <button
-                        key={item.href}
-                        onClick={() => handleNav(item.href)}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                      >
-                        <Icon className="w-4 h-4" />
-                        {item.label}
-                      </button>
-                    )
-                  })}
+                  <div className="mt-8">
+                    <a
+                      href="/resume.pdf"
+                      download
+                      className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+                    >
+                      <FileDown className="w-4 h-4" />
+                      Download Resume
+                    </a>
+                  </div>
                 </div>
 
-                <div className="p-4 border-t border-border space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent font-mono text-sm font-bold">
-                      {personalInfo.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        {personalInfo.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {personalInfo.email}
-                      </p>
-                    </div>
-                  </div>
-
-                  <a
-                    href="/resume.pdf"
-                    download
-                    className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg bg-accent text-accent-foreground text-sm font-medium hover:opacity-90 transition-all"
-                  >
-                    <FileDown className="w-4 h-4 mr-2" />
-                    Download Resume
-                  </a>
-
+                <div className="p-6">
                   <button
-                    onClick={() => {}}
-                    className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-red-500 hover:bg-red-500/10 transition-colors"
+                    onClick={() => handleNav("#experience")}
+                    className="w-full px-6 py-3.5 rounded-lg bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-all"
                   >
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
+                    View Work
                   </button>
                 </div>
               </div>
