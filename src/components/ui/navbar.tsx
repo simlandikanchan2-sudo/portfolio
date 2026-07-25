@@ -74,7 +74,7 @@ export function Navbar() {
       <nav className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-8 h-16">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors"
+          className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors truncate max-w-[160px] sm:max-w-none"
         >
           <span className="text-accent font-mono">&lt;</span>
           {personalInfo.name.split(" ")[0].toLowerCase()}
@@ -158,16 +158,16 @@ export function Navbar() {
               variants={stagger}
               initial="hidden"
               animate="visible"
-              className="flex flex-col items-center gap-6"
+              className="flex flex-col items-center gap-6 px-4"
             >
               {navLinks.map((link) => (
                 <motion.button
                   key={link.href}
                   variants={linkItem}
                   onClick={() => handleNav(link.href)}
-                  className="text-3xl font-sans font-bold text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-2xl sm:text-3xl font-sans font-bold text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <span className="text-accent font-mono text-lg">{'// '}</span>
+                  <span className="text-accent font-mono text-base sm:text-lg">{'// '}</span>
                   {link.label}
                 </motion.button>
               ))}
@@ -175,7 +175,7 @@ export function Navbar() {
                 <a
                   href="/resume.pdf"
                   download
-                  className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-accent-foreground font-medium text-base hover:opacity-90 transition-all"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-accent text-accent-foreground font-medium text-base hover:opacity-90 transition-all max-w-[90vw] justify-center"
                 >
                   <FileDown className="w-4 h-4" />
                   Download Resume

@@ -97,7 +97,7 @@ export function Resume() {
                       {exp.achievements.map((ach, j) => (
                         <li
                           key={j}
-                          className="text-xs text-muted-foreground flex gap-2"
+                          className="text-xs text-muted-foreground flex gap-2 break-words"
                         >
                           <span className="shrink-0 mt-1 w-1 h-1 rounded-full bg-accent" />
                           {ach}

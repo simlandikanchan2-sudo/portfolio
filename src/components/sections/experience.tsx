@@ -101,7 +101,7 @@ export function Experience() {
                                 delay: i * 0.04,
                                 duration: 0.3,
                               }}
-                              className="flex gap-2 text-sm text-muted-foreground"
+                              className="flex gap-2 text-sm text-muted-foreground break-words"
                             >
                               <span className="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-accent" />
                               {ach}
