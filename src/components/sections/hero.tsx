@@ -14,22 +14,22 @@ import { personalInfo } from "@/lib/resume-data"
 
 function SplitText({ text, className }: { text: string; className?: string }) {
   return (
-    <span className={className}>
+    <span className={className} style={{ perspective: "1200px" }}>
       {text.split("").map((char, i) => (
-        <span key={i} className="inline-block overflow-hidden">
-          <motion.span
-            className="inline-block"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: i * 0.04,
-              ease: [0.33, 1, 0.68, 1],
-            }}
-          >
-            {char === " " ? "\u00A0" : char}
-          </motion.span>
-        </span>
+        <motion.span
+          key={i}
+          className="inline-block"
+          initial={{ rotateX: -90, opacity: 0 }}
+          animate={{ rotateX: 0, opacity: 1 }}
+          transition={{
+            duration: 0.6,
+            delay: i * 0.04,
+            ease: [0.33, 1, 0.68, 1],
+          }}
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
       ))}
     </span>
   )

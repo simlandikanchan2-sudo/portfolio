@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "next-themes"
-import { ParticleNetwork } from "@/components/ui/particle-network"
 import "./globals.css"
 
 const bricolage = Bricolage_Grotesque({
@@ -34,7 +33,6 @@ export default function RootLayout({
       className={`${bricolage.variable} ${jetbrains.variable}`}
     >
       <body className="min-h-screen font-sans antialiased noise-overlay overflow-x-hidden">
-        <ParticleNetwork />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
