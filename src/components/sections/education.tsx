@@ -29,7 +29,7 @@ export function Education() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
-                  className="p-5 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
+                  className="p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
                 >
                   <h4 className="font-sans font-medium text-sm">
                     {edu.degree}
@@ -62,7 +62,7 @@ export function Education() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
-                  className="p-5 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
+                  className="p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
                 >
                   <h4 className="font-sans font-medium text-sm">
                     {cert.title}

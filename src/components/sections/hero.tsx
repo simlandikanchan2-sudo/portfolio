@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimationFrame } from "framer-motion"
 import {
   ArrowDown,
   ExternalLink,
@@ -11,6 +11,8 @@ import {
 } from "lucide-react"
 import { MagneticButton } from "@/components/ui/magnetic-button"
 import { personalInfo } from "@/lib/resume-data"
+import { useMousePosition } from "@/lib/use-mouse-position"
+import { useTypewriter } from "@/lib/use-typewriter"
 
 function SplitText({ text, className }: { text: string; className?: string }) {
   return (
@@ -43,6 +45,19 @@ export function Hero() {
   })
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const mouse = useMousePosition()
+  const { displayed } = useTypewriter(personalInfo.role, 60)
+  const glowX = useMotionValue(0)
+  const glowY = useMotionValue(0)
+  const smoothGlowX = useSpring(glowX, { damping: 30, stiffness: 300 })
+  const smoothGlowY = useSpring(glowY, { damping: 30, stiffness: 300 })
+
+  useAnimationFrame(() => {
+    const targetX = (mouse.x / (typeof window !== "undefined" ? window.innerWidth : 1) - 0.5) * 20
+    const targetY = (mouse.y / (typeof window !== "undefined" ? window.innerHeight : 1) - 0.5) * 20
+    glowX.set(targetX)
+    glowY.set(targetY)
+  })
 
   return (
     <section
@@ -62,6 +77,10 @@ export function Hero() {
         <motion.div
           style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]) }}
           className="absolute top-[40%] left-[30%] w-[20vw] h-[20vw] max-w-[300px] max-h-[300px] rounded-full bg-accent/5 blur-[80px]"
+        />
+        <motion.div
+          style={{ x: smoothGlowX, y: smoothGlowY }}
+          className="absolute w-[30vw] h-[30vw] max-w-[400px] max-h-[400px] rounded-full bg-accent/6 blur-[100px] pointer-events-none"
         />
       </div>
 
@@ -101,7 +120,8 @@ export function Hero() {
               role: backend
             </span>
             <span className="font-mono text-xs text-muted-foreground">
-              {personalInfo.role}
+              {displayed}
+              <span className="inline-block w-0.5 h-3.5 bg-accent animate-pulse ml-0.5" />
             </span>
           </motion.div>
 

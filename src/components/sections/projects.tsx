@@ -68,7 +68,7 @@ export function Projects() {
               <TiltCard>
                 <article
                   data-cursor="View"
-                  className="group relative rounded-2xl border border-border bg-surface p-6 sm:p-8 transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1"
+                  className="group relative rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 p-6 sm:p-8 transition-all duration-300 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>

@@ -16,12 +16,12 @@ export function Resume() {
           description="Professional background and qualifications — download the full resume."
         />
 
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-10 rounded-2xl border border-border bg-surface p-6 sm:p-10"
+          className="mt-10 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 p-6 sm:p-10"
         >
           <div className="grid grid-cols-3 gap-4">
             {featuredStats.slice(0, 3).map((stat) => (

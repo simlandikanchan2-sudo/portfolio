@@ -56,7 +56,7 @@ export function Contact() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 p-4 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
+                className="flex items-center gap-3 p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
               >
                 <div className="p-2 rounded-lg bg-accent/10 text-accent">
                   <item.icon className="w-4 h-4" />
@@ -111,7 +111,7 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="md:col-span-3 p-6 rounded-2xl border border-border bg-surface space-y-4 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300"
+            className="md:col-span-3 p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 space-y-4 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300"
           >
             <span className="font-mono text-xs text-accent">
               {'// send_message'}

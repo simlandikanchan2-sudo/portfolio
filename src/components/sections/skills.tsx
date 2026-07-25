@@ -40,7 +40,7 @@ export function Skills() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="p-5 rounded-xl border border-border bg-surface hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
+              className="p-5 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300"
             >
               <span className="font-mono text-xs text-accent">
                 {group.category.toLowerCase().replace(/\s+/g, "_")}()

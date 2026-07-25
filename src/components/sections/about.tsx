@@ -41,7 +41,7 @@ export function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="col-span-2 md:col-span-2 lg:col-span-2 row-span-2 p-6 sm:p-8 rounded-2xl border border-border bg-surface hover:border-accent/30 transition-all duration-300 group"
+            className="col-span-2 md:col-span-2 lg:col-span-2 row-span-2 p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-accent/30 transition-all duration-300 group"
           >
             <span className="font-mono text-xs text-accent mb-3 block group-hover:translate-x-1 transition-transform">
               languages()
@@ -87,7 +87,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06, duration: 0.4 }}
-                className="p-5 rounded-2xl border border-border bg-surface flex flex-col items-center justify-center text-center gap-2 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 group"
+                className="p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex flex-col items-center justify-center text-center gap-2 hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 group"
               >
                 <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
                   {Icon && <Icon className="w-4 h-4" />}

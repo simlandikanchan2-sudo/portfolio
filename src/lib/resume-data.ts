@@ -34,7 +34,7 @@ export const personalInfo = {
   role: "Full-Stack / Backend Developer",
   tagline: "Laravel · PHP · MySQL · System Design",
   intro:
-    "A results-driven full-stack developer with over 3 years of experience architecting scalable web applications. I specialize in Laravel, PHP, and MySQL, with deep expertise in payment gateways, security hardening, and data-driven dashboards. I combine strong analytical thinking with an ownership mindset to deliver production-ready solutions.",
+    "A results-driven full-stack developer with over 4 years of experience architecting scalable web applications. I specialize in Laravel, PHP, and MySQL, with deep expertise in payment gateways, security hardening, and data-driven dashboards. I combine strong analytical thinking with an ownership mindset to deliver production-ready solutions.",
   phone: "+91-8617830875",
   email: "1707368kanchan@gmail.com",
   location: "Suri, Birbhum, 731101",

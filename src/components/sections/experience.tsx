@@ -45,10 +45,10 @@ export function Experience() {
 
                 <div
                   className={cn(
-                    "rounded-xl border bg-surface overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/5 border-l-2 border-l-transparent hover:border-l-accent/50",
+                    "rounded-xl bg-white/5 backdrop-blur-md border border-white/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/5 border-l-2 border-l-transparent hover:border-l-accent/50",
                     openIndex === idx
                       ? "border-accent/30 shadow-lg shadow-accent/5 border-l-accent/50"
-                      : "border-border hover:border-accent/20"
+                      : "hover:border-accent/20"
                   )}
                 >
                   <button
