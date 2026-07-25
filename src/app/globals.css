@@ -103,6 +103,25 @@ body {
   }
 }
 
+@media (min-width: 350px) and (max-width: 768px) {
+  .mobile-stack > * {
+    width: 100%;
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+  }
+  
+  h1, h2, h3 {
+    word-break: break-word;
+  }
+  
+  p, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
 .noise-overlay::after {
   content: "";
   position: fixed;
@@ -152,5 +171,5 @@ body {
 }
 
 .text-clamp-hero {
-  font-size: clamp(3rem, 10vw, 8rem);
+  font-size: clamp(2.25rem, 7vw, 6rem);
 }

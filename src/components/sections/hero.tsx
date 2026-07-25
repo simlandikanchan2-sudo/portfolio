@@ -48,7 +48,7 @@ export function Hero() {
     <section
       id="hero"
       ref={ref}
-      className="relative min-h-screen flex items-center px-4 sm:px-8 pt-16 overflow-hidden"
+      className="relative min-h-screen flex items-start sm:items-center px-4 sm:px-8 pt-20 sm:pt-16 overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
         <motion.div
@@ -118,11 +118,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.5 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-center gap-3"
           >
             <MagneticButton
               href="#experience"
               variant="primary"
+              className="w-full sm:w-auto justify-center"
             >
               View Work
               <ArrowDown className="w-3.5 h-3.5" />
@@ -130,6 +131,7 @@ export function Hero() {
             <MagneticButton
               href="#resume"
               variant="outline"
+              className="w-full sm:w-auto justify-center"
             >
               <FileDown className="w-3.5 h-3.5" />
               View Resume
@@ -137,6 +139,7 @@ export function Hero() {
             <MagneticButton
               href="#contact"
               variant="outline"
+              className="w-full sm:w-auto justify-center"
             >
               Contact Me
             </MagneticButton>

@@ -32,7 +32,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${bricolage.variable} ${jetbrains.variable}`}
     >
-      <body className="min-h-screen font-sans antialiased noise-overlay">
+      <body className="min-h-screen font-sans antialiased noise-overlay overflow-x-hidden">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
