@@ -9,6 +9,7 @@ import {
   Mail,
   FileDown,
   Link2,
+  Circle,
 } from "lucide-react"
 import { MagneticButton } from "@/components/ui/magnetic-button"
 import { personalInfo } from "@/lib/resume-data"
@@ -37,6 +38,13 @@ function SplitText({ text, className }: { text: string; className?: string }) {
     </span>
   )
 }
+
+const codeLines = [
+  { text: "stack: laravel, php", color: "text-blue-400" },
+  { text: "db: mysql, postgresql", color: "text-green-400" },
+  { text: "security: hardened", color: "text-red-400" },
+  { text: "uptime: 99.9%", color: "text-yellow-400" },
+]
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null)
@@ -83,11 +91,18 @@ export function Hero() {
           style={{ x: smoothGlowX, y: smoothGlowY }}
           className="absolute w-[30vw] h-[30vw] max-w-[400px] max-h-[400px] rounded-full bg-accent/6 blur-[100px] pointer-events-none"
         />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle, var(--foreground) 1px, transparent 1px)`,
+            backgroundSize: "24px 24px",
+          }}
+        />
       </div>
 
       <motion.div
         style={{ opacity }}
-        className="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-8 items-center"
+        className="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"
       >
         <div className="lg:col-span-7 relative">
           <motion.div
@@ -117,8 +132,12 @@ export function Hero() {
             transition={{ delay: 0.5, duration: 0.5 }}
             className="mt-6 flex flex-wrap items-center gap-3"
           >
-            <span className="font-mono text-xs text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/20">
-              role: backend
+            <span className="relative inline-flex items-center gap-2 font-mono text-xs text-accent bg-accent/10 px-3 py-1.5 rounded-full border border-accent/20">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+              </span>
+              Available for work
             </span>
             <span className="font-mono text-xs text-muted-foreground">
               {displayed}
@@ -230,38 +249,53 @@ export function Hero() {
 
         <div className="hidden lg:block lg:col-span-5 relative">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" as const }}
             className="relative"
           >
-            <div className="aspect-square max-w-sm mx-auto rounded-2xl border border-border bg-surface overflow-hidden relative shadow-2xl shadow-accent/5">
+            <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-accent/5 to-accent/20 rounded-3xl blur-xl" />
+            <div className="relative aspect-square max-w-sm mx-auto rounded-2xl border border-border bg-surface/80 backdrop-blur-xl overflow-hidden shadow-2xl shadow-accent/5">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="font-mono text-xs text-accent mb-2">
-                    {"// system.status"}
+                <div className="w-full max-w-[280px]">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
+                    <div className="flex items-center gap-1.5">
+                      <Circle className="w-3 h-3 text-red-400 fill-current" />
+                      <Circle className="w-3 h-3 text-yellow-400 fill-current" />
+                      <Circle className="w-3 h-3 text-green-400 fill-current" />
+                    </div>
+                    <span className="font-mono text-[10px] text-muted-foreground/60">
+                      system.status
+                    </span>
                   </div>
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                    active
-                  </div>
-                  <div className="mt-6 space-y-2 text-left px-8">
-                    {[
-                      "stack: laravel, php",
-                      "db: mysql, postgresql",
-                      "security: hardened",
-                      "uptime: 99.9%",
-                    ].map((line, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1 + i * 0.1, duration: 0.3 }}
-                        className="font-mono text-xs text-muted-foreground"
-                      >
-                        <span className="text-accent">$</span> {line}
-                      </motion.div>
-                    ))}
+                  <div className="p-5 space-y-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                      </span>
+                      <span className="text-muted-foreground font-mono text-xs">active</span>
+                    </div>
+                    <div className="space-y-2.5">
+                      {codeLines.map((line, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 1 + i * 0.1, duration: 0.3 }}
+                          className="font-mono text-xs"
+                        >
+                          <span className="text-accent">$</span>{" "}
+                          <span className={line.color}>{line.text}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                    <div className="pt-3 border-t border-border/50">
+                      <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground/50">
+                        <span>latency: 12ms</span>
+                        <span>v2.4.1</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
