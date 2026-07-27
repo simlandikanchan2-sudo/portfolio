@@ -21,7 +21,7 @@ export function CaseStudy() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="03"
-          label="// FEATURED"
+          label="FEATURED"
           title="DonateBazaar by the Numbers"
           description="A full-stack donation platform built with Laravel 11 — architected for scale, hardened for security, and enriched with AI."
         />

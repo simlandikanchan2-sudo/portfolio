@@ -39,10 +39,8 @@ export function AnimatedCursor() {
       if (interactive) {
         const custom = interactive.getAttribute("data-cursor")
         setLabel(custom || labels[Math.floor(Math.random() * labels.length)])
-        document.body.style.cursor = "none"
       } else {
         setLabel("")
-        document.body.style.cursor = ""
       }
     }
 

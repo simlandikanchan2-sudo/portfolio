@@ -17,14 +17,14 @@ const slideVariant = (i: number) => ({
 })
 
 export function Experience() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
     <section className="py-20 sm:py-28 px-4 sm:px-8 bg-muted/30 relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-accent/20 before:to-transparent">
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           number="02"
-          label="// EXPERIENCE"
+          label="EXPERIENCE"
           title="Where I've Worked"
         />
 
@@ -45,7 +45,7 @@ export function Experience() {
 
                 <div
                   className={cn(
-                    "rounded-xl bg-white/5 backdrop-blur-md border border-white/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/5 border-l-2 border-l-transparent hover:border-l-accent/50",
+                    "group rounded-xl bg-white/5 backdrop-blur-md border border-white/10 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/5 border-l-2 border-l-transparent hover:border-l-accent/50",
                     openIndex === idx
                       ? "border-accent/30 shadow-lg shadow-accent/5 border-l-accent/50"
                       : "hover:border-accent/20"
@@ -67,9 +67,9 @@ export function Experience() {
                         {exp.role}
                       </h3>
                       <p className="mt-0.5 text-sm text-muted-foreground font-mono">
-                        {"<"}
+                        {""}
                         {exp.company}
-                        {"/>"}
+                        {""}
                       </p>
                     </div>
                     <motion.div

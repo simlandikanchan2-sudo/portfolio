@@ -30,7 +30,7 @@ export function About() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="01"
-          label="// ABOUT"
+          label="ABOUT"
           title="Beyond the Code"
           description={personalInfo.intro}
         />
@@ -107,7 +107,7 @@ export function About() {
             className="col-span-2 md:col-span-2 lg:col-span-2 p-6 rounded-2xl border border-accent/20 bg-accent/5 hover:border-accent/30 transition-all duration-300"
           >
             <span className="font-mono text-xs text-accent">
-              {"// core_philosophy"}
+              {" core_philosophy"}
             </span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               I combine analytical thinking with an ownership mindset to build

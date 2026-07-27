@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
 import { SectionHeading } from "@/components/ui/section-heading"
 import {
@@ -15,8 +14,6 @@ import {
 import { personalInfo } from "@/lib/resume-data"
 
 export function Contact() {
-  const [submitted, setSubmitted] = useState(false)
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
@@ -27,8 +24,6 @@ export function Contact() {
     if (name && email && message) {
       window.location.href = `mailto:${personalInfo.email}?subject=Portfolio Inquiry from ${name}&body=${message}`
     }
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
   }
 
   return (
@@ -36,7 +31,7 @@ export function Contact() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="08"
-          label="// CONNECT"
+          label="CONNECT"
           title="Get in Touch"
           description="Have a project in mind or just want to say hello? Let's connect."
         />
@@ -114,7 +109,7 @@ export function Contact() {
             className="md:col-span-3 p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 space-y-4 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300"
           >
             <span className="font-mono text-xs text-accent">
-              {'// send_message'}
+              {' send_message'}
             </span>
             <div className="mt-2 space-y-4">
               <div>
@@ -162,7 +157,7 @@ export function Contact() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-accent text-accent-foreground font-medium text-sm hover:opacity-90 transition-all"
               >
-                {submitted ? "Sent!" : "Send Message"}
+                Open Mail Client
                 <Send className="w-3.5 h-3.5" />
               </motion.button>
             </div>

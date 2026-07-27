@@ -28,7 +28,7 @@ export function Skills() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="04"
-          label="// TOOLBOX"
+          label="TOOLBOX"
           title="Technical Skills"
         />
 

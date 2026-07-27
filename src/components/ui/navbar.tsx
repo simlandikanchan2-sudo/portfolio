@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, FileDown } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { navLinks, personalInfo } from "@/lib/resume-data"
 import { cn } from "@/lib/utils"
+import { useActiveSection } from "@/lib/use-active-section"
 
 const drawerVariants = {
   hidden: { x: "-100%" },
@@ -30,7 +31,8 @@ const menuOrder = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [active, setActive] = useState("")
+  const active = useActiveSection()
+  const scrollYRef = useRef(0)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -39,27 +41,26 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navLinks.map((l) => ({
-        id: l.href.replace("#", ""),
-        top: document.getElementById(l.href.replace("#", ""))?.offsetTop ?? 0,
-      }))
-      const scrollPos = window.scrollY + 120
-      let current = sections[0]?.id ?? ""
-      for (const s of sections) {
-        if (scrollPos >= s.top) current = s.id
-      }
-      setActive(current)
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false)
     }
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    if (mobileOpen) {
+      document.addEventListener("keydown", handleKey)
+      scrollYRef.current = window.scrollY
+      document.body.style.position = "fixed"
+      document.body.style.top = `-${scrollYRef.current}px`
+      document.body.style.width = "100%"
+      document.body.style.overflow = "hidden"
+    }
     return () => {
+      document.removeEventListener("keydown", handleKey)
+      document.body.style.position = ""
+      document.body.style.top = ""
+      document.body.style.width = ""
       document.body.style.overflow = ""
+      if (mobileOpen) {
+        window.scrollTo(0, scrollYRef.current)
+      }
     }
   }, [mobileOpen])
 
@@ -157,74 +158,86 @@ export function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            key="drawer"
-            variants={drawerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed inset-0 z-50 bg-white dark:bg-surface md:hidden overflow-y-auto"
-          >
-            <div className="flex flex-col min-h-full px-8 py-10">
-              <div className="flex items-center justify-between">
-                <button
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors"
-                >
-                  <span className="text-accent font-mono">&lt;</span>
-                  {personalInfo.name.split(" ")[0].toLowerCase()}
-                  <span className="text-accent font-mono">/&gt;</span>
-                </button>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted"
-                  aria-label="Close menu"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+          <>
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/50 md:hidden"
+              onClick={() => setMobileOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              key="drawer"
+              variants={drawerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed inset-y-0 left-0 z-50 w-80 max-w-[80vw] bg-white dark:bg-surface md:hidden overflow-y-auto shadow-2xl"
+            >
+              <div className="flex flex-col min-h-full px-8 py-10">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                    className="font-sans text-lg font-bold tracking-tight hover:text-accent transition-colors"
+                  >
+                    <span className="text-accent font-mono">&lt;</span>
+                    {personalInfo.name.split(" ")[0].toLowerCase()}
+                    <span className="text-accent font-mono">/&gt;</span>
+                  </button>
+                  <button
+                    onClick={() => setMobileOpen(false)}
+                    className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
 
-              <nav className="flex-1 pt-16 space-y-2">
-                {menuOrder.map((item) => {
-                  const isActive = active === item.href.replace("#", "")
-                  return (
-                    <button
-                      key={item.href}
-                      onClick={() => handleNav(item.href)}
-                      className={cn(
-                        "w-full flex items-center justify-between py-4 text-lg font-medium transition-colors",
-                        isActive
-                          ? "text-accent"
-                          : "text-foreground hover:text-accent"
-                      )}
-                    >
-                      <span>{item.label}</span>
-                      <span className="text-muted-foreground text-xl leading-none">&gt;</span>
-                    </button>
-                  )
-                })}
-              </nav>
+                <nav className="flex-1 pt-16 space-y-2">
+                  {menuOrder.map((item) => {
+                    const isActive = active === item.href.replace("#", "")
+                    return (
+                      <button
+                        key={item.href}
+                        onClick={() => handleNav(item.href)}
+                        className={cn(
+                          "w-full flex items-center justify-between py-4 text-lg font-medium transition-colors",
+                          isActive
+                            ? "text-accent"
+                            : "text-foreground hover:text-accent"
+                        )}
+                      >
+                        <span>{item.label}</span>
+                        <span className="text-muted-foreground text-xl leading-none">&gt;</span>
+                      </button>
+                    )
+                  })}
+                </nav>
 
-              <div className="pt-8">
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="text-sm font-medium text-accent hover:underline"
-                >
-                  Download Resume
-                </a>
-              </div>
+                <div className="pt-8">
+                  <a
+                    href="/resume.pdf"
+                    download
+                    className="text-sm font-medium text-accent hover:underline"
+                  >
+                    Download Resume
+                  </a>
+                </div>
 
-              <div className="pt-8 pb-4">
-                <button
-                  onClick={() => handleNav("#projects")}
-                  className="w-full py-4 rounded-lg bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-all"
-                >
-                  View Work
-                </button>
+                <div className="pt-8 pb-4">
+                  <button
+                    onClick={() => handleNav("#projects")}
+                    className="w-full py-4 rounded-lg bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-all"
+                  >
+                    View Work
+                  </button>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

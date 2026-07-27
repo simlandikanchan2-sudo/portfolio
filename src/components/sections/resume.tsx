@@ -11,7 +11,7 @@ export function Resume() {
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           number="07"
-          label="// RESUME"
+          label="RESUME"
           title="Resume"
           description="Professional background and qualifications — download the full resume."
         />

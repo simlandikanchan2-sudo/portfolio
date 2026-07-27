@@ -11,7 +11,7 @@ export function Education() {
       <div className="mx-auto max-w-5xl">
         <SectionHeading
           number="06"
-          label="// LEARNING"
+          label="LEARNING"
           title="Education & Certifications"
         />
 
@@ -37,7 +37,7 @@ export function Education() {
                   <p className="mt-1 text-sm text-muted-foreground">
                     {edu.institution}
                   </p>
-                  <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground/70">
+                   <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground/80">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
                       {edu.location}

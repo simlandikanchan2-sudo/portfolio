@@ -134,6 +134,12 @@ body {
   background-size: 256px 256px;
 }
 
+@media (max-width: 1023px) {
+  .noise-overlay::after {
+    display: none;
+  }
+}
+
 .section-number {
   @apply select-none font-mono font-bold leading-none;
   font-size: clamp(6rem, 15vw, 12rem);

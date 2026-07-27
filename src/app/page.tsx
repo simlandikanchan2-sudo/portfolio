@@ -17,7 +17,7 @@ export default function Home() {
       <AnimatedCursor />
       <Navbar />
       <ScrollIndicator />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Experience />

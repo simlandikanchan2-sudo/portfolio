@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion } from "framer-motion"
+import { motion, useMotionValue, useSpring } from "framer-motion"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { projects } from "@/lib/resume-data"
 import { ExternalLink } from "lucide-react"
@@ -15,6 +15,14 @@ function TiltCard({
 }) {
   const ref = useRef<HTMLDivElement>(null)
 
+  const rotateX = useMotionValue(0)
+  const rotateY = useMotionValue(0)
+  const scale = useMotionValue(1)
+
+  const springX = useSpring(rotateX, { stiffness: 300, damping: 20 })
+  const springY = useSpring(rotateY, { stiffness: 300, damping: 20 })
+  const springScale = useSpring(scale, { stiffness: 300, damping: 20 })
+
   const handleMouse = (e: React.MouseEvent) => {
     if (!ref.current) return
     const rect = ref.current.getBoundingClientRect()
@@ -22,27 +30,34 @@ function TiltCard({
     const y = e.clientY - rect.top
     const centerX = rect.width / 2
     const centerY = rect.height / 2
-    const rotateX = ((y - centerY) / centerY) * -8
-    const rotateY = ((x - centerX) / centerX) * 8
-    ref.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`
+    const rX = ((y - centerY) / centerY) * -8
+    const rY = ((x - centerX) / centerX) * 8
+    rotateX.set(rX)
+    rotateY.set(rY)
+    scale.set(1.02)
   }
 
   const reset = () => {
-    if (!ref.current) return
-    ref.current.style.transform =
-      "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)"
+    rotateX.set(0)
+    rotateY.set(0)
+    scale.set(1)
   }
 
   return (
-    <div
+    <motion.div
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
-      className={`transition-transform duration-200 ease-out ${className || ""}`}
-      style={{ transformStyle: "preserve-3d" }}
+      style={{
+        rotateX: springX,
+        rotateY: springY,
+        scale: springScale,
+        transformStyle: "preserve-3d",
+      }}
+      className={className || ""}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -52,7 +67,7 @@ export function Projects() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           number="05"
-          label="// PORTFOLIO"
+          label="PORTFOLIO"
           title="Projects"
         />
 
@@ -128,7 +143,7 @@ export function Projects() {
                 <h3 className="mt-2 font-sans text-xl font-semibold text-muted-foreground">
                   Coming Soon
                 </h3>
-                <p className="mt-2 text-sm text-muted-foreground/60 max-w-xs mx-auto">
+                 <p className="mt-2 text-sm text-muted-foreground/80 max-w-xs mx-auto">
                   More projects are in the works. Check back soon!
                 </p>
               </div>

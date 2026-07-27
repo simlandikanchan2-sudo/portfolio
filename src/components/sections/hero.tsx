@@ -145,7 +145,7 @@ export function Hero() {
               variant="primary"
               className="w-full sm:w-auto justify-center"
             >
-              View Work
+               View Experience
               <ArrowDown className="w-3.5 h-3.5" />
             </MagneticButton>
             <MagneticButton
