@@ -8,6 +8,7 @@ import {
   Globe,
   Mail,
   FileDown,
+  Link2,
 } from "lucide-react"
 import { MagneticButton } from "@/components/ui/magnetic-button"
 import { personalInfo } from "@/lib/resume-data"
@@ -202,6 +203,28 @@ export function Hero() {
             >
               <Mail className="w-4 h-4" />
             </motion.a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+            className="mt-4 flex flex-wrap items-center gap-2"
+          >
+            {personalInfo.websites.map((site) => (
+              <motion.a
+                key={site.href}
+                href={site.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-xs font-medium text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all"
+                whileHover={{ scale: 1.05, y: -1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link2 className="w-3 h-3" />
+                {site.label}
+              </motion.a>
+            ))}
           </motion.div>
         </div>
 

@@ -41,6 +41,12 @@ export const personalInfo = {
   linkedin: "#",
   github: "#",
   languages: ["English", "Hindi", "Bengali"] as const,
+  websites: [
+    { label: "Jewelbox", href: "https://jewelbox.co.in/" },
+    { label: "Tata Pravesh", href: "https://tatapravesh.com/" },
+    { label: "Tata Pravesh Lead", href: "https://lead.tatapravesh.com/" },
+    { label: "Alongkari", href: "https://www.alongkari.com/" },
+  ] as const,
   strengths: [
     { title: "Analytical Thinking", icon: "brain" },
     { title: "Ownership Mindset", icon: "target" },
